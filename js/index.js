@@ -59,13 +59,11 @@ async function fetchIpAddress() {
         clearTimeout(timeoutId);
         if (res.ok) {
             const data = await res.json();
-            const ip = data?.ip || data?.address || data?.client_ip;
-            if (ip && typeof ip === 'string') return ip;
+            if (data?.ip) return data.ip;
         }
-    } catch (_) {
-        // 静默失败
-    }
+    } catch (_) { /* 静默失败，继续 fallback */ }
 
+    // 备选：ipify
     try {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 3000);
@@ -76,11 +74,9 @@ async function fetchIpAddress() {
         clearTimeout(timeoutId);
         if (res.ok) {
             const data = await res.json();
-            if (data?.ip && typeof data.ip === 'string') return data.ip;
+            if (data?.ip) return data.ip;
         }
-    } catch (_) {
-        // 静默失败
-    }
+    } catch (_) { /* 静默失败 */ }
 
     return '127.0.0.1';
 }
@@ -198,6 +194,7 @@ function CentralDisplay({ timeStr, dateStr, ipAddress, visitorCount }) {
  * 主组件
  * ====================================================== */
 function App() {
+    const entryTimeRef = useRef(Date.now());
     const [timeStr, setTimeStr] = useState(() => formatTime(new Date()));
     const [dateStr, setDateStr] = useState(() => formatDate(new Date()));
     const [ipAddress, setIpAddress] = useState('127.0.0.1');
@@ -376,6 +373,31 @@ function App() {
             setIsDragging(false);
         }
     }, []);
+
+    const sendTrackData = useCallback((duration) => {
+    	const data = {
+        	page_path: window.location.pathname,
+        	stay_duration_seconds: Math.round(duration / 1000)
+    	};
+    	// 使用 sendBeacon 确保页面关闭时能发送成功
+    	const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    	navigator.sendBeacon(`${BACKEND_API_BASE}/api/track`, blob);
+    }, []);
+
+    useEffect(() => {
+    	const handleBeforeUnload = () => {
+        	const duration = Date.now() - entryTimeRef.current;
+        	sendTrackData(duration);
+    	};
+    	window.addEventListener('beforeunload', handleBeforeUnload);
+    	// 也监听 pagehide 作为备选（移动端）
+    	window.addEventListener('pagehide', handleBeforeUnload);
+
+    	return () => {
+        	window.removeEventListener('beforeunload', handleBeforeUnload);
+        	window.removeEventListener('pagehide', handleBeforeUnload);
+    	};
+    }, [sendTrackData]);
 
     /* ----- 全局事件监听 ----- */
     useEffect(() => {
