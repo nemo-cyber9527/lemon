@@ -5,12 +5,12 @@ const { useState, useEffect, useRef, useCallback, useMemo } = React;
  * 图标配置数组 —— 后续在此添加新图标即可自动适配
  * ====================================================== */
 const ICON_CONFIGS = [
-    { id: 'llm', name: '大语言模型', symbol: '🧠', url: '/llm/index.html', color: '#00e5ff' },
-    { id: 'vision', name: '图像识别模型', symbol: '👁️', url: '/vision/index.html', color: '#7c4dff' },
-    { id: 'reverse', name: '逆向工程', symbol: '⚙️', url: '/reverse/index.html', color: '#ff6d00' },
-    { id: 'pentest', name: '渗透测试', symbol: '🛡️', url: '/pentest/index.html', color: '#ff1744' },
-    { id: 'bigdata', name: '大数据与建模', symbol: '📊', url: '/bigdata/index.html', color: '#00e676' },
-    { id: 'arch', name: '系统架构', symbol: '📐', url: '/arch/index.html', color: '#ffab00' },
+    { id: 'llm', name: '大语言模型', symbol: '🧠', url: 'llm/index.html', color: '#00e5ff' },
+    { id: 'vision', name: '图像识别模型', symbol: '👁️', url: 'vision/index.html', color: '#7c4dff' },
+    { id: 'reverse', name: '逆向工程', symbol: '⚙️', url: 'reverse/index.html', color: '#ff6d00' },
+    { id: 'pentest', name: '渗透测试', symbol: '🛡️', url: 'pentest/index.html', color: '#ff1744' },
+    { id: 'bigdata', name: '大数据与建模', symbol: '📊', url: 'bigdata/index.html', color: '#00e676' },
+    { id: 'arch', name: '系统架构', symbol: '📐', url: 'arch/index.html', color: '#ffab00' },
 ];
 
 /* ======================================================
