@@ -61,7 +61,7 @@
 
         // 准备 FormData
         const formData = new FormData();
-        formData.append('image', selectedFile);
+        formData.append('file', selectedFile);
 
         try {
             const response = await fetch('https://www.u4019814.nyat.app:25782/api/analyze_image', {
