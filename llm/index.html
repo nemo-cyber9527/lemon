@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大语言模型 · Nemo</title>
+    <link rel="stylesheet" href="../css/llm.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 背景装饰 -->
+        <div class="tech-bg"></div>
+        <div class="hud-corner tl"></div>
+        <div class="hud-corner tr"></div>
+        <div class="hud-corner bl"></div>
+        <div class="hud-corner br"></div>
+
+        <!-- 返回首页按钮 -->
+        <button id="backHomeBtn" class="back-home-btn">
+            <span class="back-icon">←</span> 返回首页
+        </button>
+
+        <!-- 聊天主容器 -->
+        <div class="chat-container">
+            <!-- 消息显示区域 -->
+            <div id="chatMessages" class="chat-messages">
+                <!-- 消息会通过JS动态添加 -->
+            </div>
+
+            <!-- 输入区域 -->
+            <div class="input-area">
+                <button id="uploadBtn" class="upload-btn" title="上传文件">
+                    📎
+                </button>
+                <textarea id="messageInput" class="message-input" rows="1" placeholder="输入消息..."></textarea>
+                <button id="sendBtn" class="send-btn">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提示 overlay（用于上传功能占位） -->
+    <div id="overlay" class="overlay" style="display: none;">
+        <div class="overlay-content">上传文件功能即将上线</div>
+    </div>
+
+    <script src="../js/llm.js"></script>
+</body>
+</html>

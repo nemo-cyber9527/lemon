@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图像识别模型 · Nemo</title>
+    <link rel="stylesheet" href="../css/vision.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 背景装饰 -->
+        <div class="tech-bg"></div>
+        <div class="hud-corner tl"></div>
+        <div class="hud-corner tr"></div>
+        <div class="hud-corner bl"></div>
+        <div class="hud-corner br"></div>
+
+        <!-- 返回首页按钮 -->
+        <button id="backHomeBtn" class="back-home-btn">
+            <span class="back-icon">←</span> 返回首页
+        </button>
+
+        <!-- 主内容区域 -->
+        <div class="main-container">
+            <!-- 初始上传面板 -->
+            <div id="uploadPanel" class="upload-panel">
+                <button id="uploadImageBtn" class="tech-btn upload-btn">
+                    <span class="btn-icon">📁</span> 上传图片
+                </button>
+                <input type="file" id="fileInput" accept="image/*" hidden>
+                <div id="fileNameDisplay" class="file-name"></div>
+                <button id="confirmUploadBtn" class="tech-btn confirm-btn" disabled>
+                    确认上传
+                </button>
+            </div>
+
+            <!-- 分析结果面板（初始隐藏） -->
+            <div id="resultPanel" class="result-panel" style="display: none;">
+                <div class="result-box" id="resultBox">
+                    <span id="resultText" class="result-text">正在分析中，请稍候...</span>
+                    <button id="reuploadBtn" class="reupload-btn" title="再次上传">再次上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/vision.js"></script>
+</body>
+</html>
