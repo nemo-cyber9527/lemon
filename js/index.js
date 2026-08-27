@@ -50,6 +50,9 @@ const ICON_CONFIGS = [
     },
 ];
 
+// 已上线模块名单
+const ONLINE_MODULES = new Set(['llm', 'vision']);
+
 /* ======================================================
  * 常量配置
  * ====================================================== */
@@ -227,11 +230,16 @@ function App() {
         };
         renderer.domElement.addEventListener('mousemove', onMouseMove);
 
+        // 点击逻辑：已上线直接跳转，未上线提示
         const onClick = () => {
             if (hoveredIdxRef.current >= 0) {
                 const cfg = ICON_CONFIGS[hoveredIdxRef.current];
                 console.log(`[导航] 跳转到: ${cfg.name} -> ${cfg.url}`);
-                alert(`${cfg.name}功能即将上线，敬请期待`);
+                if (ONLINE_MODULES.has(cfg.id)) {
+                    window.location.href = cfg.url;
+                } else {
+                    alert(`${cfg.name}功能即将上线，敬请期待`);
+                }
             }
         };
         renderer.domElement.addEventListener('click', onClick);
@@ -595,7 +603,7 @@ function App() {
             <div className="three-canvas-wrap" ref={containerRef}></div>
             <div className="scroll-spacer"></div>
 
-            {/* 左下角信息面板：原中心屏幕全部信息迁移至此 */}
+            {/* 左下角信息面板 */}
             <div className="intro-panel">
                 <div className="panel-time">{timeStr}</div>
                 <div className="panel-date">{dateStr}</div>
